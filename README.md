@@ -1,6 +1,6 @@
 # flutter_christmas
 
-A new Flutter project.
+Preparando para a época de festas, esse programa consiste em uma arvore de natal que se ascende em determinadas cores, com animações e uma música de fundo.
 
 ## Getting Started
 
