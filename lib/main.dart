@@ -26,6 +26,8 @@ class MyTree extends StatefulWidget {
 }
 
 class _MyTreeState extends State<MyTree> {
+  bool isPlayed = true;
+
   AudioPlayer audioPlayer;
   AudioCache audioCache = AudioCache();
   @override
@@ -47,42 +49,54 @@ class _MyTreeState extends State<MyTree> {
   static final _offsets = _generateOffsets(100, 0.05).toList(growable: false);
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.black,
-      child: Container(
-        constraints: BoxConstraints(maxWidth: 700),
-        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 8),
-        child: ListView(
-          children: <Widget>[
-            Center(
-              child: Icon(
-                Icons.star,
-                color: Colors.white,
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red[700],
+        child: Icon(
+          isPlayed ? Icons.stop_outlined : Icons.play_arrow_outlined,
+        ),
+        onPressed: () {
+          setState(() {
+            isPlayed = !isPlayed;
+            if (isPlayed) {
+              playMusic();
+            } else {
+              audioPlayer.stop();
+            }
+          });
+        },
+      ),
+      body: Material(
+        color: Colors.black,
+        child: Container(
+          constraints: BoxConstraints(maxWidth: 700),
+          padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 8),
+          child: ListView(
+            children: <Widget>[
+              Center(
+                child: Icon(
+                  Icons.star,
+                  color: Colors.white,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            for (final x in _offsets)
-              Light(
-                x: x,
+              SizedBox(
+                height: 8,
               ),
-            SizedBox(
-              height: 8,
-            ),
-            Center(
-              child: Text("Boas Festas!"),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            RaisedButton(
-              child: Text("Parar"),
-              onPressed: () {
-                audioPlayer.stop();
-              },
-            )
-          ],
+              for (final x in _offsets)
+                Light(
+                  x: x,
+                ),
+              SizedBox(
+                height: 8,
+              ),
+              Center(
+                child: Text("Boas Festas!"),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
         ),
       ),
     );
